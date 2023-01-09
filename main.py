@@ -36,7 +36,7 @@ async def callback(request: Request, x_line_signature: str = Header(None)):
 
 @app.get('/')
 def read_root():
-    return 'OK'
+    return {"Hello": "World"}
 
 @handler.add(event=MessageEvent, message=TextMessage)
 def handle_message(event):
