@@ -34,7 +34,7 @@ async def callback(request: Request, x_line_signature: str = Header(None)):
         raise HTTPException(status_code=400, detail="Invalid signature. Please check your channel access token/channel secret.")
     return 'OK'
 
-@app.get('/')
+@app.get("/")
 def read_root():
     return {"Hello": "World"}
 
