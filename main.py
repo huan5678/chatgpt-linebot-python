@@ -1,9 +1,10 @@
 import os
 import re
 from fastapi import FastAPI, HTTPException
-from dotenv import load_dotenv
 from fastapi.params import Header
 from starlette.requests import Request
+import uvicorn
+from dotenv import load_dotenv
 from models.message_request import MessageRequest
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
@@ -24,7 +25,7 @@ def get_message(request: MessageRequest):
             return skill(request)
     request.intent = '{not_match}'
     return skills['{not_match}'](request)
-  
+
 @app.post("/")
 async def callback(request: Request, x_line_signature: str = Header(None)):
     body = await request.body()
@@ -44,6 +45,10 @@ def handle_message(event):
     msg_request.intent = event.message.text
     msg_request.message = event.message.text
     msg_request.user_id = event.source.user_id
-    
+
     func = get_message(msg_request)
     line_bot_api.reply_message(event.reply_token, func)
+
+
+if __name__ == "__main__":
+    uvicorn.run("server.api:app", host="0.0.0.0", port=8000, reload=True)
