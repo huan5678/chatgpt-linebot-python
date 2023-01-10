@@ -1,14 +1,16 @@
 import os
 import re
-from fastapi import FastAPI, HTTPException
-from fastapi.params import Header
-from starlette.requests import Request
+
 import uvicorn
 from dotenv import load_dotenv
-from models.message_request import MessageRequest
+from fastapi import FastAPI, HTTPException
+from fastapi.params import Header
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage
+from starlette.requests import Request
+
+from models.message_request import MessageRequest
 from skills import *
 from skills import skills
 

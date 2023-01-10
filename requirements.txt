@@ -2,4 +2,4 @@ fastAPI
 uvicorn
 line-bot-sdk
 python-dotenv
-openai
+openai==0.19.0
