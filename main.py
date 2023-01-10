@@ -28,7 +28,7 @@ def get_message(request: MessageRequest):
     request.intent = '{not_match}'
     return skills['{not_match}'](request)
 
-@app.post("/")
+@app.post("/webhook")
 async def callback(request: Request, x_line_signature: str = Header(None)):
     body = await request.body()
     try:
