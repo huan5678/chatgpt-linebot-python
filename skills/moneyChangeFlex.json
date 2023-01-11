@@ -1,0 +1,107 @@
+{
+  "type": "bubble",
+  "direction": "ltr",
+  "header": {
+    "type": "box",
+    "layout": "horizontal",
+    "contents": [
+      {
+        "type": "text",
+        "text": "匯率轉換",
+        "size": "lg",
+        "color": "#14AC12D8",
+        "align": "start",
+        "gravity": "center",
+        "contents": [],
+        "flex": 0
+      },
+      {
+        "type": "text",
+        "text": "台幣 ➡️ 美金",
+        "size": "lg",
+        "align": "end",
+        "gravity": "center",
+        "contents": [],
+        "flex": 0
+      }
+    ],
+    "justifyContent": "space-between",
+    "alignItems": "center"
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "baseline",
+        "contents": [
+          {
+            "type": "text",
+            "text": "新台幣",
+            "size": "lg",
+            "align": "start",
+            "gravity": "bottom",
+            "contents": [],
+            "flex": 0
+          },
+          {
+            "type": "text",
+            "text": "100000000",
+            "weight": "bold",
+            "size": "xxl",
+            "color": "#7B7B7BFF",
+            "contents": [],
+            "wrap": true,
+            "align": "end",
+            "adjustMode": "shrink-to-fit"
+          }
+        ],
+        "justifyContent": "space-between",
+        "alignItems": "flex-end"
+      },
+      {
+        "type": "separator",
+        "margin": "lg"
+      },
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "paddingTop": "5%",
+        "contents": [
+          {
+            "type": "text",
+            "text": "美金",
+            "size": "lg",
+            "contents": [],
+            "flex": 0
+          }
+        ],
+        "justifyContent": "flex-start",
+        "alignItems": "flex-end"
+      }
+    ],
+    "paddingAll": "8%"
+  },
+  "footer": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "37654321098.00",
+        "weight": "bold",
+        "size": "3xl",
+        "color": "#404040FF",
+        "align": "end",
+        "contents": [],
+        "wrap": true,
+        "adjustMode": "shrink-to-fit",
+        "style": "italic"
+      }
+    ],
+    "paddingStart": "8%",
+    "paddingEnd": "8%",
+    "offsetTop": "-8px"
+  }
+}

@@ -30,12 +30,23 @@ def get(message_request: MessageRequest):
         dollarTypeList = getDollarTypeList()
         return [TextSendMessage(text=f'可查詢之幣別有:{newLine} {dollarTypeList}')]
     dollarType = strArr[1]
-    dollarAmount = strArr[2]
+    dollarAmount = int(strArr[2])
+    if dollarAmount == '' or dollarAmount == None or dollarAmount <= 0:
+        return [TextSendMessage(text='請輸入正確金額')]
     result = getDollarRate(dollarType, float(dollarAmount))
-    msg = TextSendMessage(
-        text=
-        f'匯率轉換 (新台幣 ➡️ {dollarType}){newLine}新臺幣: {dollarAmount}{newLine}⬇️💰⬇️{newLine}{dollarType}: {result}'
-    )
+    if result == 'error':
+        return [TextSendMessage(text='請輸入正確幣別')]
+    flex = json.load(
+        open(os.getcwd() + '/skills/'
+             'moneyChangeFlex.json',
+             'r',
+             encoding='utf-8'))
+
+    flex['header']['contents'][1]['text'] = f'新臺幣 ➡️ {dollarType}'
+    flex['body']['contents'][0]['contents'][1]['text'] = f'{dollarAmount}'
+    flex['body']['contents'][2]['contents'][0]['text'] = f'{dollarType}'
+    flex['footer']['contents'][0]['text'] = f'{result}'
+    msg = FlexSendMessage(alt_text='匯率轉換', contents=flex)
     return [
         msg
     ]
@@ -63,7 +74,9 @@ def getDollarRate(dollarType: str, dollarAmount: float):
         u"幣別", u"現金匯率-本行買入", u"現金匯率-本行賣出", u"即期匯率-本行買入", u"即期匯率-本行賣出"
     ]
     currency[u'幣別'] = currency[u'幣別'].str.extract('(\w+)')
-
+    currencyEd = currency[currency['幣別'] == dollarType]
+    if currencyEd.empty:
+        return 'error'
     r = list(filter(lambda c: c[0] == dollarType, currency.to_numpy()))
     val = float(r[0][2])
 
