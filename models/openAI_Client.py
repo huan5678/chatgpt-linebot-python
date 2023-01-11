@@ -56,8 +56,23 @@ class OpenAI_Client:
             response['msg'].capitalize()
         )
 
+  def getStatus(self):
+    return {
+      "model": self.model,
+      "temperature": self.temperature,
+      "max_tokens": self.max_tokens,
+      "frequency_penalty": self.frequency_penalty,
+    }
+
   def clearHistory(self):
     self.history = ''
+
+  def getModelList(self):
+    models = openai.Model.list()
+    result = []
+    for model in models.data:
+      result.append(model.id)
+    return result
 
   def generateMessage(self, message):
       response = openai.Completion.create(

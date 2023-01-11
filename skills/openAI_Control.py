@@ -50,3 +50,32 @@ def get(message_request: MessageRequest):
   result = create_prompt(resData)
   print('send_result: ', result)
   return result
+
+@add_skill('/重來')
+def get(message_request: MessageRequest):
+  client.clearHistory()
+  exit()
+
+@add_skill('/token')
+def get(message_request: MessageRequest):
+  text = message_request.message.strip()
+  token = text.split(' ')
+  client.setMaxTokens(int(token[1]))
+  exit()
+
+@add_skill('/狀態')
+def get(message_request: MessageRequest):
+  return [TextSendMessage(text=f'狀態: {client.getStatus()}')]
+
+@add_skill('/model')
+def get(message_request: MessageRequest):
+    result = client.getModelList()
+    return [TextSendMessage(text=f"{result}")]
+
+@add_skill('/setModel')
+def get(message_request: MessageRequest):
+  text = message_request.message.strip()
+  model = text.split(' ')
+  client.setModel(model[1])
+  exit()
+
