@@ -1,8 +1,11 @@
 import json
 import os
-from linebot.models import TextSendMessage, TemplateSendMessage, ButtonsTemplate, MessageAction, FlexSendMessage
-from models.message_request import MessageRequest
+
 import pandas as pd
+from linebot.models import (ButtonsTemplate, FlexSendMessage, MessageAction,
+                            TemplateSendMessage, TextSendMessage)
+
+from models.message_request import MessageRequest
 from skills import add_skill
 
 newLine = '\n'

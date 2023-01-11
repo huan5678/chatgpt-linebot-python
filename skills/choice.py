@@ -1,5 +1,8 @@
 import random
-from linebot.models import TextSendMessage, TemplateSendMessage, ButtonsTemplate, MessageAction
+
+from linebot.models import (ButtonsTemplate, MessageAction,
+                            TemplateSendMessage, TextSendMessage)
+
 from models.message_request import MessageRequest
 from skills import add_skill
 
@@ -7,11 +10,9 @@ from skills import add_skill
 @add_skill('/隨選')
 def get(message_request: MessageRequest):
     formatStr = message_request.message.replace('/隨選', '')
-    if formatStr == '':
-        return [TextSendMessage(text='請輸入選項')]
     strArr = formatStr.split(',')
-    if len(strArr) == 0:
-        return [TextSendMessage(text='請輸入選項')]
+    if formatStr == '' or formatStr == '/隨選' or len(strArr) == 0:
+        return [TextSendMessage(text='請輸入選項 範例: /隨選 1,2,3,4,5')]
     elif len(strArr) == 1:
         return [TextSendMessage(text=strArr[0])]
     elif len(strArr) >= 2:
