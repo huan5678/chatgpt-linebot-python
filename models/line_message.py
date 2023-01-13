@@ -14,31 +14,74 @@ def continue_button():
         )
     )
 
-def generate_flex_message(props_title, props_text):
+
+def generate_flex_message(props_title: str, props_data: str, control=None):
+    if control == 'command':
+        contents = []
+        for command in props_data:
+            if props_data[command]['type'] == 'message':
+              action = {
+                  'type': props_data[command]['type'],
+                  'label': f'{command}',
+                  'text': props_data[command]['text'],
+              }
+            else:
+              action = {
+                  'type': props_data[command]['type'],
+                  'label': f'{command}',
+                  'data': props_data[command]['text'],
+                  'displayText': props_data[command]['text'],
+              }
+            contents.append({
+                'type': 'button',
+                'style': 'link',
+                'action': action
+            })
+        return FlexSendMessage(
+            alt_text=props_title,
+            contents={
+                'type': 'bubble',
+                'header': {
+                    'type': 'box',
+                    'layout': 'vertical',
+                    'contents': [
+                        {
+                            'type': 'text',
+                            'text': props_title,
+                            'weight': 'bold',
+                        },
+                    ],
+                },
+                'body': {
+                    'type': 'box',
+                    'layout': 'vertical',
+                    'contents': contents,
+                },
+            })
     return FlexSendMessage(
-        alt_text='Flex Message',
+        alt_text=props_title,
         contents={
-            "type": "bubble",
-            "header": {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
+            'type': 'bubble',
+            'header': {
+                'type': 'box',
+                'layout': 'vertical',
+                'contents': [
                     {
-                        "type": "text",
-                        "text": props_title,
-                        "weight": "bold",
-                        "size": "xl"
+                        'type': 'text',
+                        'text': props_title,
+                        'weight': 'bold',
+                        'size': 'xl'
                     }
-                    ]
+                ]
             },
-            "body": {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
+            'body': {
+                'type': 'box',
+                'layout': 'vertical',
+                'contents': [
                     {
-                        "type": "text",
-                        "text": f'{props_text}',
-                        "wrap": True
+                        'type': 'text',
+                        'text': f'{props_data}',
+                        'wrap': True
                     }
                 ]
             }
@@ -46,7 +89,5 @@ def generate_flex_message(props_title, props_text):
     )
 
 
-def generate_message(props_text):
+def generate_message(props_text: str):
     return TextSendMessage(text=f'{props_text}')
-
-
