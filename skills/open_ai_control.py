@@ -2,9 +2,12 @@ from models.line_message import (continue_button, generate_flex_message,
                                  generate_message)
 from models.message_request import MessageRequest
 from models.open_ai_client import OpenAI_Client
+from config.command_setting import get_commands
 from skills import add_skill
 
 client = OpenAI_Client()
+
+
 
 
 def return_message(resData):
@@ -29,16 +32,7 @@ def return_message(resData):
 
 @add_skill('/command')
 def get(message_request: MessageRequest):
-    commands = {
-        '重新輸入': { 'type': 'message', 'text': '/redo',},
-        '清除紀錄': { 'type': 'message', 'text': '/clear',},
-        '設定token': {'type': 'postback', 'text': '/token [數字]',},
-        '切換頻率': { 'type': 'postback', 'text': '/setFrequency [數字]', },
-        '切換模型': {'type': 'postback', 'text': '/setModel [模型名稱]', },
-        '模型列表': {'type': 'message', 'text': '/modelList', },
-        '狀態': {'type': 'message', 'text': '/status', },
-        '查看歷史紀錄': {'type': 'message', 'text': '/history', }
-    }
+    commands = get_commands()
     msg = generate_flex_message('請輸入以下指令', commands, 'command')
     return [msg]
 
