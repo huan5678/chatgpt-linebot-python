@@ -79,11 +79,7 @@ continue...'''.format(history)
           frequency_penalty=self.frequency_penalty,
           user=str(userId),
           )
-        resArr = response.choices[0].text.split('\n')
-        resArr.pop(0)
-        result = ''
-        for resStr in resArr:
-            result += resStr + '\n'
+        result = response.choices[0].text
         resultData = {
           "msg": result,
           "isFinished": True if response.choices[0].finish_reason == 'stop' else False,
